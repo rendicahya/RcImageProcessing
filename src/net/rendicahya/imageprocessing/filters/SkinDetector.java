@@ -1,9 +1,9 @@
-package net.rendicahya.imageprocessing.filter;
+package net.rendicahya.imageprocessing.filters;
 
 import java.awt.image.BufferedImage;
 import net.rendicahya.imageprocessing.utils.ColorUtils;
 
-public class SkinDetection {
+public class SkinDetector {
 
     public static BufferedImage filter(BufferedImage input) {
         int height = input.getHeight();
@@ -14,7 +14,7 @@ public class SkinDetection {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int color = input.getRGB(x, y);
-                int[] rgb = ColorUtils.separate(color);
+                int[] rgb = ColorUtils.split(color);
 
                 int r = rgb[0];
                 int g = rgb[1];
@@ -22,7 +22,6 @@ public class SkinDetection {
 
                 int Y = (int) (0.59 * g + 0.31 * r + 0.11 * b);
                 int Cr = (int) (0.713 * (r - Y));
-//                final int Cb = (int) (0.564 * (b - Y));
 
                 int YCrCb = Cr > 12 ? color : 0;
 

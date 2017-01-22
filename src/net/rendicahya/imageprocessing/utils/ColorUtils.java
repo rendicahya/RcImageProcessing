@@ -6,7 +6,7 @@ public class ColorUtils {
         return 65536 * r + 256 * g + b;
     }
 
-    public static int[] separate(int rgb) {
+    public static int[] split(int rgb) {
         return new int[]{(rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF};
     }
 

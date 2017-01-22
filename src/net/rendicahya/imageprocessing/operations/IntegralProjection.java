@@ -1,4 +1,4 @@
-package net.rendicahya.imageprocessing.op;
+package net.rendicahya.imageprocessing.operations;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,9 +16,9 @@ public class IntegralProjection {
     private BufferedImage hProj = null;
     private int[] vArray = null;
     private int[] hArray = null;
-    private BufferedImage input;
-    private Dimension vProjDim;
-    private Dimension hProjDim;
+    private final BufferedImage input;
+    private final Dimension vProjDim;
+    private final Dimension hProjDim;
     private int vMaxIndex;
     private int vMax = 0;
     private int hMax = 0;
@@ -29,9 +29,6 @@ public class IntegralProjection {
         this.hProjDim = hProjDim;
     }
 
-    /**
-     * Membuat array integral projection secara vertikal.
-     */
     private void initVerticalArray() {
         vArray = new int[input.getHeight()];
 
@@ -53,9 +50,6 @@ public class IntegralProjection {
         }
     }
 
-    /**
-     * Menggambar grafik integral projection secara vertikal.
-     */
     private void drawVerticalProj() {
         if (vArray == null) {
             initVerticalArray();
@@ -64,22 +58,19 @@ public class IntegralProjection {
         int height = input.getHeight();
         vProj = new BufferedImage(vProjDim.width, vProjDim.height, BufferedImage.TYPE_INT_RGB);
 
-        Graphics g = vProj.getGraphics();
-        g.setColor(bgColor);
-        g.fillRect(0, 0, vProjDim.width, vProjDim.height);
+        Graphics graphics = vProj.getGraphics();
+        graphics.setColor(bgColor);
+        graphics.fillRect(0, 0, vProjDim.width, vProjDim.height);
 
-        g.setColor(brushColor);
+        graphics.setColor(brushColor);
 
         for (int i = 0; i < height; i++) {
-            g.drawLine(0, i, (int) (((float) vArray[i] / vMax) * vProjDim.width), i);
+            graphics.drawLine(0, i, (int) (((float) vArray[i] / vMax) * vProjDim.width), i);
         }
 
-        g.dispose();
+        graphics.dispose();
     }
 
-    /**
-     * Membuat array integral projection secara horizontal.
-     */
     private void initHorizontalArray() {
         hArray = new int[input.getWidth()];
 
@@ -100,9 +91,6 @@ public class IntegralProjection {
         }
     }
 
-    /**
-     * Menggambar grafik integral projection secara horizontal.
-     */
     private void drawHorizontalProj() {
         if (hArray == null) {
             initHorizontalArray();
@@ -110,24 +98,19 @@ public class IntegralProjection {
 
         int width = input.getWidth();
         hProj = new BufferedImage(hProjDim.width, hProjDim.height, BufferedImage.TYPE_INT_RGB);
-        Graphics g = hProj.getGraphics();
-        g.setColor(bgColor);
-        g.fillRect(0, 0, hProjDim.width, hProjDim.height);
+        Graphics graphics = hProj.getGraphics();
+        graphics.setColor(bgColor);
+        graphics.fillRect(0, 0, hProjDim.width, hProjDim.height);
 
-        g.setColor(brushColor);
+        graphics.setColor(brushColor);
 
         for (int i = 0; i < width; i++) {
-            g.drawLine(i, 0, i, (int) (((float) hArray[i] / hMax) * hProjDim.height));
+            graphics.drawLine(i, 0, i, (int) (((float) hArray[i] / hMax) * hProjDim.height));
         }
 
-        g.dispose();
+        graphics.dispose();
     }
 
-    /**
-     * Mendapatkan array integral projection secara vertikal.
-     *
-     * @return array integral projection vertikal.
-     */
     public int[] getVerticalArray() {
         if (vArray == null) {
             initVerticalArray();
@@ -136,11 +119,6 @@ public class IntegralProjection {
         return vArray;
     }
 
-    /**
-     * Mendapatkan grafik integral projection secara vertikal.
-     *
-     * @return grafik integral projection vertikal.
-     */
     public BufferedImage getVerticalProjection() {
         if (vProj == null) {
             drawVerticalProj();
@@ -149,11 +127,6 @@ public class IntegralProjection {
         return vProj;
     }
 
-    /**
-     * Mendapatkan array integral projection secara horizontal.
-     *
-     * @return array integral projection horizontal.
-     */
     public int[] getHorizontalArray() {
         if (hArray == null) {
             initHorizontalArray();
@@ -162,11 +135,6 @@ public class IntegralProjection {
         return hArray;
     }
 
-    /**
-     * Mendapatkan grafik integral projection secara horizontal.
-     *
-     * @return grafik integral projection horizontal.
-     */
     public BufferedImage getHorizontalProjection() {
         if (hProj == null) {
             drawHorizontalProj();
@@ -175,12 +143,6 @@ public class IntegralProjection {
         return hProj;
     }
 
-    /**
-     * Mendapatkan index dari nilai maksimum integral projection secara
-     * vertikal.
-     *
-     * @return index dari nilai maksimum integral projection vertikal.
-     */
     public int getVMaxIndex() {
         if (vArray == null) {
             initVerticalArray();
@@ -189,11 +151,6 @@ public class IntegralProjection {
         return vMaxIndex;
     }
 
-    /**
-     * Mendapatkan nilai maksimum integral projection secara vertikal.
-     *
-     * @return nilai maksimum integral projection vertikal.
-     */
     public int getVMax() {
         if (vArray == null) {
             initVerticalArray();
